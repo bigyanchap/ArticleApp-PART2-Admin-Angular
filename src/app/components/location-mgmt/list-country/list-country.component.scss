@@ -1,0 +1,23 @@
+table{
+    border:1px solid #ededed;
+  margin-top:20px;
+  }
+
+thead{
+    background: #FFF !important;
+}
+  tbody tr:nth-child(odd){
+    background-color: rgba(246, 246, 246, 0.6);
+
+  }
+
+
+
+  .card .card-header{
+    padding: 15px 30px;
+  border-bottom: 1px solid #ddd;
+}
+.card .card-body{
+  padding: 15px 30px;
+  background-color: transparent;
+}

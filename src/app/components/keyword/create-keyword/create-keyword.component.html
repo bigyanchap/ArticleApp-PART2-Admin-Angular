@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <h5>Create Keyword</h5>
+    </div>
+    <div class="card-body tab2-card">
+      <form [formGroup]="keywordForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate="">
+        <div class="form-group row">
+          <app-text-input class="col-12" formControlName="name" [type]="'text'" [label]="'Keyword'">
+          </app-text-input>
+        </div>
+        <div class="form-group row editor-label">
+          <app-text-input class="col-12" formControlName="description" [type]="'text'" [label]="'Different Names(optional)'">
+          </app-text-input>
+        </div>
+        <div class="pull-right">
+          <button [disabled]='keywordForm.invalid' type="submit" class="btn btn-primary"> Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn btn-primary m-b-10" data-original-title="test"
+  [routerLink]="['/keyword/list-keyword']">
+  Keyword List
+</button>

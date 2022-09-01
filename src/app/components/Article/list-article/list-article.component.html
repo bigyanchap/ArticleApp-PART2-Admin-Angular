@@ -1,0 +1,123 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12">
+      <button type="button" class="btn btn-primary m-b-10" data-original-title="test"
+        [routerLink]="['/article/create-article']">
+        Create Article
+      </button>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>Articles</h5>
+          <br>
+          <br>
+          <div class="row">
+            <div class="col-4">
+              <b>Search String</b>
+              <input class="form-control" placeholder="Search Text" id="searchString" type="text" required=""
+                [(ngModel)]="queryObject.searchString">
+            </div>
+            <div class="col-4">
+              <b>Status</b>
+              <select class="custom-select" [(ngModel)]="queryObject.status">
+                <option value="-1">--Status--</option>
+                <option *ngFor='let obj of statuses;' [value]='obj.value'>
+                  {{obj.key}}
+                </option>
+              </select>
+            </div>
+            <div class="col-4">
+              <b>Season</b>
+              <select class="custom-select" [(ngModel)]="queryObject.season">
+                <option value="-1">--Season--</option>
+                <option *ngFor='let obj of seasons;' [value]='obj.seasonId'>
+                  {{obj.name}}
+                </option>
+              </select>
+            </div>
+            <div class="col-4">
+              <b>Timing</b>
+              <select class="custom-select" [(ngModel)]="queryObject.twentyFourHourTiming">
+                <option value="-1">--Timing--</option>
+                <option *ngFor='let obj of twentyFourHourTimings;' [value]='obj.twentyFourHourTimingId'>
+                  {{obj.name}}
+                </option>
+              </select>
+            </div>
+            <div class="col-4">
+              <b>Publish Date Range</b>
+              <app-datefilter #child (myoutput)="getPublishDateRange($event)"></app-datefilter>
+            </div>
+            <div class="col-4 mt-3">
+              <button type="button" class="btn btn-secondary" (click)="Search()">Search</button>
+              <button type="button" class="btn btn-primary m-2" (click)="Reset();child.reset()">Reset</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th *ngFor='let c of columns'>
+                      <div *ngIf="c.isSortable" (click)="sortBy(c.key)">
+                        {{c.title}}
+                        <i *ngIf="queryObject.sortBy===c.key" class="fa" [class.fa-sort-asc]="queryObject.isSortAsc"
+                          [class.fa-sort-desc]="!queryObject.isSortAsc"></i>
+                      </div>
+                      <div *ngIf="!c.isSortable">
+                        {{c.title}}
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor='let item of articles; let idx=index;'>
+                    <td>
+                      {{item.id}}
+                    </td>
+                    <td>
+                      {{item.title}}
+                    </td>
+                    <td>
+                      {{item.status_}}
+                    </td>
+                    <td>
+                      {{item.description}}
+                    </td>
+                    <td>
+                      <i (click)="onEdit(item.id,item.title)" class="fa fa-edit"
+                        style="color: blue; font-size: 20px; margin-left: 8px;">
+                      </i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <ngb-pagination [collectionSize]="queryObject.pageCount" [pageSize]="queryObject.pageSize"
+                [page]="queryObject.page" (pageChange)="onPageChange($event)" aria-label="Default pagination">
+              </ngb-pagination>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="form-group row mt-3">
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2">
+                No of Items
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-2 col-xl-2">
+                <select class="custom-select form-control" (change)="changePageSize($event)"
+                  [(ngModel)]="queryObject.pageSize" id="pageSize">
+                  <option [value]='10'>10</option>
+                  <option [value]='20'>20</option>
+                  <option [value]='50'>50</option>
+                  <option [value]='100'>100</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5>Edit Keywords</h5>
+        </div>
+        <div class="card-body tab2-card">
+            <ngb-tabset class="tab-coupon">
+                <ngb-tab title="Keyword">
+                    <ng-template ngbTabContent>
+                        <form [formGroup]="keywordForm" class="needs-validation" novalidate="">
+                            <div class="form-group row">
+                                <app-text-input class="col-12" formControlName="name" [type]="'text'" [label]="'*Name'">
+                                </app-text-input>
+                            </div>
+                            <div class="form-group row editor-label">
+                                <app-text-input class="col-12" formControlName="description" [type]="'text'"
+                                    [label]="'Different Names(optional)'">
+                                </app-text-input>
+                            </div>
+                            <div class="pull-right" style="margin: 0px 20px 0px 0px;">
+                                <button [disabled]="keywordForm.invalid" type="submit" class="btn btn-primary"
+                                    (click)="saveKeyword()">Save</button>
+                            </div>
+                            <div class="pull-right" style="margin: 0px 0px 0px 20px;">
+                                <button type="submit" class="btn btn-info"
+                                    [routerLink]="['/keyword/list-keyword']">Back</button>
+                            </div>
+                        </form>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab>
+                    <ng-template ngbTabTitle>
+                        Synonyms
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                        <div class="col-lg-12">
+                            <button type="button" class="btn btn-primary m-b-10" (click)="addNewSynonym()">
+                                Add New
+                            </button>
+                        </div>
+                        <div class="col-sm-12">
+                            <div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Word
+                                            </th>
+                                            <th>
+                                                Language
+                                            </th>
+                                            <th>
+                                                Actions
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor='let item of synonyms; let idx=index;'>
+                                            <td>
+                                                {{item.name}}
+                                            </td>
+                                            <td>
+                                                {{item.language}}
+                                            </td>
+                                            <td>
+                                                <i (click)="onDeleteSynonym(item.name,item.id,idx)" class="fa fa-trash"
+                                                    style="color: red; font-size: 20px; margin-left: 8px;">
+                                                </i>
+                                                <i (click)="onEditSynonym(item.name,item.id,idx)" class="fa fa-edit"
+                                                    style="color: red; font-size: 20px; margin-left: 8px;">
+                                                </i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
+        </div>
+    </div>
+</div>
+
+
+<button type="button" class="btn btn-primary m-b-10" data-original-title="test"
+    [routerLink]="['/keyword/list-keyword']">
+    Keyword List
+</button>

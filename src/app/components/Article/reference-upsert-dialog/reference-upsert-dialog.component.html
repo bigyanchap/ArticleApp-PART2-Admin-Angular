@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <h5 class="modal-title f-w-600" id="itemModalLabel">Add Reference</h5>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('undefined')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="referenceForm" class="needs-validation" novalidate="">
+        <h4>Values</h4>
+        <div class="row">
+            <div class="from-group col-12">
+                <app-text-input class="col-12" formControlName="title" [type]="'text'" [label]="'Reference'">
+                </app-text-input>
+            </div>
+            <div class="form-group col-12">
+                <app-textarea-input class="col-12" formControlName="description" [type]="'text'"
+                    [label]="'Description'">
+                </app-textarea-input>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-12">
+                <div *ngIf='imagesUrl.length>0' class="m-t-10">
+                    <div *ngFor='let url of imagesUrl; let idx=index;'>
+                        <div class="form-group m-checkbox-inline  mb-0 custom-radio-ml d-flex ">
+                            <img class="img-thumbnail m-r-15" [src]='this.baseUrlForImage+ url.imageUrl'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="from-group col-12">
+                <div class="custom-dropzone" ngx-dropzone [accept]="'image/*'" [multiple]="false"
+                    (change)="onSelect($event)">
+                    <ngx-dropzone-label>
+                        <i class="fa fa-cloud-upload"></i>
+                        Drop here image
+                    </ngx-dropzone-label>
+                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f"
+                        [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label></ngx-dropzone-label>
+                    </ngx-dropzone-image-preview>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button [disabled]="referenceForm.invalid" type="button" class="btn btn-primary" (click)="onSave()">Save</button>
+    <button type="button" ngbAutofocus class="btn btn-primary" (click)="activeModal.close('undefined')">Close</button>
+</div>

@@ -1,0 +1,63 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <button type="button" class="btn btn-primary m-b-10" data-original-title="test"
+                [routerLink]="['/category/upsert-category']">
+                Add New
+            </button>
+        </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table mt-3">
+                        <thead>
+                            <tr>
+                                <th *ngFor='let c of columns'>
+                                    <div *ngIf="c.isSortable" (click)="sortBy(c.key)">
+                                        {{c.title}} 
+                                        <i *ngIf="queryObject.sortBy===c.key" class="fa"
+                                            [class.fa-sort-asc]="queryObject.isSortAsc"
+                                            [class.fa-sort-desc]="!queryObject.isSortAsc"></i>
+                                    </div>
+                                    <div *ngIf="!c.isSortable">
+                                        {{c.title}}
+                                    </div>
+                                </th> 
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="categories?.length;else no_data_temp">
+                            <tr *ngFor='let item of categories'>
+                                <td>
+                                    {{item.id}}
+                                </td>
+                                <td>
+                                    {{item.name}}
+                                </td>
+                                <td>
+                                    {{item.description}}
+                                </td>
+                                <td>
+                                    {{item.statusId==1?"Published":"Draft"}}
+                                </td>
+                                <td>
+                                    <img src="{{this.baseUrlForImage+item.imagePath}}" width="50px">
+                                </td>
+                                <td>
+                                    <a (click)="onEdit(item.id)" style="margin-right: 8px">
+                                        <i class="fa fa-edit" style="font-size: 25px;color: rgb(10, 2, 116);cursor: pointer;"></i>
+                                    </a>
+                                    <i (click)="onDeleteConfirm(item.id)" class="fa fa-trash" style="color: red; font-size: 20px; margin-left: 8px;">
+                                    </i>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <ng-template #no_data_temp>
+                            <h4 class="text-center d-block w-100 mt-3">{{this.noDataFound}}</h4>
+                        </ng-template>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

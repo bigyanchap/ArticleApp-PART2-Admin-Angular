@@ -1,0 +1,36 @@
+<form [formGroup]="countryListForm">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+                <h5>{{title}} Country</h5>  
+            </div>
+            <div class="row card-body tab2-card">
+                <div class="col-12">
+                    <div class="form-group row  mr-0 ">
+                        <app-text-input class="col-12" formControlName="name" [type]="'text'" [label]="'Name'">
+                        </app-text-input>
+                    </div>
+                    
+                    <div class="form-group row  mr-0">
+                        <app-text-input class="col-12" formControlName="code" [type]="'text'" [label]="'Country Code'">
+                        </app-text-input>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="pull-right">
+                                <button [routerLink]="['/location-mgmt/list-country']" type="button"
+                                    class="btn btn-primary">
+                                    Discard
+                                </button>
+                                <button type="button" class="btn btn-success ml-2" (click)="saveCountryList()">
+                                    {{btnSave}}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

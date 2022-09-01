@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5>{{title}} Category</h5>
+        </div>
+        <div class="card-body tab2-card">
+            <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate="">
+                <div class="form-group row">
+                    <app-text-input class="col-12" formControlName="name" [type]="'text'" [label]="'name'">
+                    </app-text-input>
+                </div>
+                <div class="form-group row">
+                    <app-text-input class="col-12" formControlName="description" [type]="'text'" [label]="'description'">
+                    </app-text-input>
+                </div>
+                <div class="form-group row">
+                    <label for="statusId" class="col-12">status</label>
+                    <select class="form-control col-6" formControlName="statusId">
+                        <option value='1'>Published</option>
+                        <option value='0'>Draft</option>
+                    </select>
+                </div>
+                <div class="digital-add needs-validation">
+                    <label class="col-form-label pt-0">Category Image Upload</label>
+                    <div class="custom-dropzone" ngx-dropzone [multiple]="false" [accept]="'image/*'" [expandable]="true"
+                        (change)="onSelect($event)">
+                        <ngx-dropzone-label>
+                            <i class="fa fa-cloud-upload"></i>
+                            Drop here Category Icon Image (200 &times; 200 pixels)
+                        </ngx-dropzone-label>
+                    </div>
+                    <br>
+                    <div class="row" *ngIf="this.imagePath.length>0">
+                        <div class="col-xl-6 col-md-12">
+                            <img class="img-thumbnail m-r-15" width="300px" [src]='this.baseUrlForImage+this.imagePath'>
+                        </div>
+                        
+                    </div>
+                    <div class="row" *ngIf="this.imageNameTemp!=''">
+                        New Image Selected:
+                        <ngx-dropzone-preview *ngFor="let f of files" [removable]="false">
+                            <ngx-dropzone-label>{{ f.name }}</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </div>
+                </div>
+                <br>
+                <hr>
+                <div class="form-group row">
+                    <app-text-input class="col-12" formControlName="password" [type]="'text'" [label]="'password'">
+                    </app-text-input>
+                </div>
+                <div class="pull-right">
+                    <button [routerLink]="['/category/list-category']" type="button" class="btn btn-secondary mr-2">
+                        Cancel
+                    </button>
+                    <button [disabled]="categoryForm.invalid" type="submit" class="btn btn-primary">{{btnSave}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

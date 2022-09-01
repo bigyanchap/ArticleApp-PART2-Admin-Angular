@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h5 class="modal-title f-w-600" id="itemModalLabel">Add Synonym</h5>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('undefined')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form [formGroup]="synonymForm" class="needs-validation" novalidate="">
+        <h4>Values</h4>
+        <div class="row">
+            <div class="from-group col-12">
+                <app-text-input class="col-12" formControlName="name" [type]="'text'" [label]="'Synonym'">
+                </app-text-input>
+            </div>
+            <div class="form-group col-12">
+                <label for="language"> Language</label>
+                <select class="form-control" formControlName="language" id="language">
+                    <option *ngFor='let obj of languages; let i =index;' [value]='obj.value'>
+                        {{obj.key}}
+                    </option>
+                </select>
+                <div *ngIf="synonymForm.controls.language.touched && synonymForm.controls.language.errors?.required"
+                    class="form-group row">
+                    <span class="text text-danger ml-3">
+                        Language is Required.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button [disabled]="synonymForm.invalid" type="button" class="btn btn-primary" (click)="onSave()">Save</button>
+    <button type="button" ngbAutofocus class="btn btn-primary" (click)="activeModal.close('undefined')">Close</button>
+</div>

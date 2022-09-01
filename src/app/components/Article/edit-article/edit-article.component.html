@@ -1,0 +1,138 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <h5>Edit Article</h5>
+    </div>
+    <div class="card-body tab2-card">
+      <ngb-tabset class="tab-coupon">
+        <ngb-tab title="Basic Info">
+          <ng-template ngbTabContent>
+            <form [formGroup]="articleForm" class="needs-validation" novalidate="">
+              <div class="form-group row">
+                <app-text-input class="col-12" formControlName="title" [type]="'text'" [label]="'Title'">
+                </app-text-input>
+              </div>
+
+              <div class="form-group row">
+                <app-textarea-input class="col-12" formControlName="shortDescription" [label]="'Short Description'">
+                </app-textarea-input>
+              </div>
+              <div class="row">
+                <div class="col-2">
+                  <div class="form-group row">
+                    <label for="status" class="col-12"> Status</label>
+                    <select class="form-control  col-12" formControlName="status" id="status">
+                      <option *ngFor='let obj of articleStatuses; let i =index;' [value]='obj.value'>
+                        {{obj.key}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-1">
+                </div>
+                <div class="col-4">
+                  <div class="form-group row">
+                    <label for="season" class="col-12"> Season</label>
+                    <select class="form-control  col-12" formControlName="season" id="season">
+                      <option *ngFor='let obj of seasons; let i =index;' [value]='obj.seasonId'>
+                        {{obj.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-1">
+                </div>
+                <div class="col-4">
+                  <div class="form-group row">
+                    <label for="twentyFourHourTiming" class="col-12">Timing</label>
+                    <select class="form-control  col-12" formControlName="twentyFourHourTiming"
+                      id="twentyFourHourTiming">
+                      <option *ngFor='let obj of twentyFourHourTimings; let i =index;'
+                        [value]='obj.twentyFourHourTimingId'>
+                        {{obj.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <app-textarea-input class="col-12" formControlName="description" [label]="'Description'">
+                </app-textarea-input>
+              </div>
+              <div class="pull-right">
+                <button [disabled]="articleForm.invalid" (click)="onSubmit()" class="btn btn-primary"> Save Basic
+                  Details</button>
+              </div>
+            </form>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Keywords">
+          <ng-template ngbTabContent>
+            <form [formGroup]="keywordForm">
+              <div class="row">
+                <tag-input formControlName="myKeywords" [onlyFromAutocomplete]="true" (onRemove)="onRemoveKW($event)"
+                  (onAdd)="onAddKW($event)">
+                  <tag-input-dropdown [autocompleteObservable]="requestKeywords">
+                  </tag-input-dropdown>
+                </tag-input>
+              </div>
+            </form>
+            <div class="pull-right">
+              <button (click)="onSaveTag()" class="btn btn-primary" [disabled]="disableSaveTag"> Save Tags</button>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="Cover Image">
+          <ng-template ngbTabContent>
+            <div class="row product-adding">
+              <div class="col-xl-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div>
+                      <h5>Cover Image </h5>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="digital-add needs-validation">
+                      <label class="col-form-label pt-0">Cover Image Upload</label>
+                      <div class="custom-dropzone" ngx-dropzone  [multiple]="false" [accept]="'image/*'" [expandable]="true"
+                        (change)="onSelect($event)">
+                        <ngx-dropzone-label>
+                          <i class="fa fa-cloud-upload"></i>
+                          Drop here Cover Image
+                        </ngx-dropzone-label>
+                      </div>
+                      <br>
+                      <div *ngIf="article.imagePath!==''">
+                        <div class="row">
+                          <div class="col-xl-3 col-md-12">
+                            {{article.imageName}}
+                          </div>
+                          <div class="col-xl-6 col-md-12">
+                            <img class="img-thumbnail m-r-15" width="300px"
+                              [src]='this.baseUrlForImage+ article.imagePath'>
+                          </div>
+                          <div class="col-xl-3 col-md-12">
+                            <i (click)="deleteImage(article.id,article.imageName)" class="fa fa-times-circle"
+                              style="color: red; font-size: 20px;">
+                            </i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="References">
+          <ng-template ngbTabContent>
+            <app-article-reference [articleId]="articleId"></app-article-reference>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
+    </div>
+  </div>
+</div>
